@@ -1,25 +1,43 @@
-# Monoalphabetic Encryption Steps:
-# 1. Read each char from the plain text
-# 2. Find position of that char in ASCII
-# 3. Substitute with the char at that position in the Randomized Key
-
-
-
-# Monoaplphabetic Decryption Steps:
-# The encryption steps but reversely
-
 import random
-import string
 
-chars = list(string.ascii_letters + string.digits + string.punctuation + " ")
-random.seed(1)
-random_key = chars.copy()
-random.shuffle(random_key)
+def monoalphabetic_encrypt(plaintext):
+    # Define the character set we want to use (common printable characters 32-126, 161-249)
+    chars = ''.join([chr(i) for i in range(32, 127)] + [chr(i) for i in range(161, 250)])
+    char_list = list(chars)
+    
+    # Create a shuffled copy of the character list (key)
+    key = char_list.copy()
+    random.shuffle(key)
+    
+    # Encrypt the plaintext by finding each character's position and using the key
+    ciphertext = ''
+    for char in plaintext:
+        if char in char_list:
+            position = char_list.index(char)
+            ciphertext += key[position]
+        else:
+            raise ValueError(f"Character '{char}' is not a valid ASCII character.")
+    
+    return ciphertext, char_list, key
 
-def monoalphabetic_decrypt (cipher_text, key):
-    plain_text = ""
-    for char in cipher_text:
-        plain_text += chars[key.index(char)]
-    print(f"Plain text: {plain_text}")
+# Get input from user
+plaintext = input("\nEnter the plaintext: ")
 
-monoalphabetic_decrypt(input("Enter cipher text: "), random_key)
+# Encrypt and print results
+ciphertext, char_list, key = monoalphabetic_encrypt(plaintext)
+print("\nEncrypted text:", ciphertext)
+
+def monoalphabetic_decrypt (ciphertext, key):
+    plaintext = ""
+    for char in ciphertext:
+        plaintext += char_list[key.index(char)]
+    print(f"\nDecrypted text: {plaintext}")
+
+monoalphabetic_decrypt(ciphertext, key)
+
+# Print the key
+# print("\nSubstitution Key:")
+# print("Plain\tCipher")
+# print("-" * 16)
+# for i in range(len(char_list)):
+#     print(f"{char_list[i]}\t{key[i]}")
