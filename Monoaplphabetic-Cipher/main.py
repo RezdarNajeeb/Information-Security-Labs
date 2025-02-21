@@ -1,39 +1,47 @@
 import random
 
-def monoalphabetic_encrypt(plaintext):
-    # Define the character set we want to use (common printable characters 32-126, 161-249)
-    chars = ''.join([chr(i) for i in range(32, 127)] + [chr(i) for i in range(161, 250)])
-    char_list = list(chars)
-    
-    # Create a shuffled copy of the character list (key)
-    key = char_list.copy()
-    random.shuffle(key)
-    
-    # Encrypt the plaintext by finding each character's position and using the key
-    ciphertext = ''
-    for char in plaintext:
-        if char in char_list:
-            position = char_list.index(char)
-            ciphertext += key[position]
-        else:
-            raise ValueError(f"Character '{char}' is not a valid ASCII character.")
-    
-    return ciphertext, char_list, key
+# List of printable ASCII characters
+chars = list(chr(i) for i in range(256) if chr(i).isprintable())
 
-# Get input from user
-plaintext = input("\nEnter the plaintext: ")
+# Shuffle the character set to create a unique cipher mapping (key)
+shuffled_key = chars.copy()
+random.shuffle(shuffled_key)
 
-# Encrypt and print results
-ciphertext, char_list, key = monoalphabetic_encrypt(plaintext)
-print("\nEncrypted text:", ciphertext)
+# Monoalphabetic Encryption
+def monoalphabetic_encrypt(plain_text, key):
+    # Mapped dictionary of characters to their corresponding shuffled key
+    char_to_key = dict(zip(chars, key))
 
-def monoalphabetic_decrypt (ciphertext, key):
-    plaintext = ""
-    for char in ciphertext:
-        plaintext += char_list[key.index(char)]
-    print(f"\nDecrypted text: {plaintext}")
+    # Encrypt the text by replacing each character with its mapped value
+    try:
+        return ''.join(char_to_key[char] for char in plain_text)
+    except KeyError as e:
+        # Handle the case where an input character is not in the predefined character set
+        raise ValueError(f"Character '{e.args[0]}' is not a valid ASCII character.")
 
-monoalphabetic_decrypt(ciphertext, key)
+# Get user input
+plaintext = input("Enter the plaintext: ")
+
+# Encrypt the plaintext and display the result
+encrypted = monoalphabetic_encrypt(plaintext, shuffled_key)
+print("\nEncrypted text:", encrypted)
+
+# Monoalphabetic Decryption
+def monoalphabetic_decrypt(cipher_text, key):
+    # Mapped dictionary of shuffled key to their corresponding characters
+    key_to_char = dict(zip(key, chars))
+
+    # Decrypt the text by replacing each character with its original mapped value
+    try:
+        return ''.join(key_to_char[char] for char in cipher_text)
+    except KeyError as e:
+        # Handle the case where an input character is not in the predefined character set
+        raise ValueError(f"Character '{e.args[0]}' is not a valid ASCII character.")
+
+# Decrypt the encrypted text and display the result
+decrypted = monoalphabetic_decrypt(encrypted, shuffled_key)
+print(f"\nDecrypted text: {decrypted}")
+
 
 # Print the key
 # print("\nSubstitution Key:")
