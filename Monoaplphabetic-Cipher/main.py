@@ -24,7 +24,7 @@ plaintext = input("Enter the plaintext: ")
 
 # Encrypt the plaintext and display the result
 encrypted = monoalphabetic_encrypt(plaintext, shuffled_key)
-print("\nEncrypted text:", encrypted)
+print("Encrypted text:", encrypted)
 
 # Monoalphabetic Decryption
 def monoalphabetic_decrypt(cipher_text, key):
@@ -40,12 +40,13 @@ def monoalphabetic_decrypt(cipher_text, key):
 
 # Decrypt the encrypted text and display the result
 decrypted = monoalphabetic_decrypt(encrypted, shuffled_key)
-print(f"\nDecrypted text: {decrypted}")
+print(f"Decrypted text: {decrypted}")
 
 
-# Print the key
-# print("\nSubstitution Key:")
-# print("Plain\tCipher")
-# print("-" * 16)
-# for i in range(len(char_list)):
-#     print(f"{char_list[i]}\t{key[i]}")
+# Display the used random shuffled key
+used_chars = set(plaintext)
+print("\nRandom Shuffled Key (Only used mappings)")
+print("Plain\tCipher")
+print("-" * 16)
+for char in used_chars:
+    print(f"{char}\t\t{shuffled_key[chars.index(char)]}")
