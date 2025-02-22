@@ -1,22 +1,23 @@
 # Create a list of only printable characters
 chars = list(chr(i) for i in range(256) if chr(i).isprintable())
-char_map = dict(zip(chars, range(len(chars)))) # Dictionary mapping (character, index) pairs
 
 def caesar_encrypt(plain_text, shift):
-    ciphertext = []
+    ciphertext = ""
     for char in plain_text:
-        if char not in char_map:
+        if char not in chars:
             exit(f'Invalid Character')
-        ciphertext.append(chars[(char_map[char] + shift) % len(chars)])
-    return ''.join(ciphertext)
+        position = chars.index(char)
+        ciphertext += chars[(position + shift) % len(chars)]
+    return ciphertext
 
 def caesar_decrypt(cipher_text, shift):
-    plaintext = []
+    plaintext = ""
     for char in cipher_text:
-        if char not in char_map:
+        if char not in chars:
             exit(f'Invalid Character')
-        plaintext.append(chars[(char_map[char] - shift) % len(chars)])
-    return ''.join(plaintext)
+        position = chars.index(char)
+        plaintext += chars[(position - shift) % len(chars)]
+    return plaintext
 
 def caesar_attack(cipher_text):
     for i in range(len(chars)):
