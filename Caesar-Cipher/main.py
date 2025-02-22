@@ -20,6 +20,8 @@ def caesar_decrypt(cipher_text, shift):
 
 def caesar_attack(cipher_text):
     for i in range(len(chars)):
+        if i == 0:
+            continue
         decrypted_attempt = caesar_decrypt(cipher_text, i)
         print(f"Shift (K) = {i}: {decrypted_attempt}")
 
@@ -36,5 +38,5 @@ decrypted = caesar_decrypt(encrypted, shiftNum)
 print(f"Decrypted text: {decrypted}")
 
 # Brute force attack on the encrypted text
-print("\nBrute Force Attack")
+print(f"\nBrute Force Attack For This Encrypted Text: {encrypted}")
 caesar_attack(encrypted)
