@@ -42,7 +42,6 @@ def monoalphabetic_decrypt(cipher_text, key):
 decrypted = monoalphabetic_decrypt(encrypted, shuffled_key)
 print(f"Decrypted text: {decrypted}")
 
-
 # Display the used random shuffled key
 print("\nRandom Shuffled Key")
 print("Plain\tCipher")
