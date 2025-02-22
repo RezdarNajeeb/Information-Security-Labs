@@ -44,9 +44,8 @@ print(f"Decrypted text: {decrypted}")
 
 
 # Display the used random shuffled key
-used_chars = set(plaintext)
-print("\nRandom Shuffled Key (Only used mappings)")
+print("\nRandom Shuffled Key")
 print("Plain\tCipher")
 print("-" * 16)
-for char in used_chars:
+for char in chars:
     print(f"{char}\t\t{shuffled_key[chars.index(char)]}")
