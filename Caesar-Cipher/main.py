@@ -20,9 +20,7 @@ def caesar_decrypt(cipher_text, shift):
     return plaintext
 
 def caesar_attack(cipher_text):
-    for i in range(len(chars)):
-        if i == 0:
-            continue
+    for i in range(1, len(chars)):
         decrypted_attempt = caesar_decrypt(cipher_text, i)
         print(f"Shift (K) = {i}: {decrypted_attempt}")
 
