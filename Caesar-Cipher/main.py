@@ -25,8 +25,22 @@ def caesar_attack(cipher_text):
         print(f"Shift (K) = {i}: {decrypted_attempt}")
 
 # Get user input
-plainText = input("Enter the plaintext: ")
-shiftNum = abs(int(input("Enter the shift: "))) % len(chars)
+plainText = input("Enter the plaintext: ").strip()
+while not plainText.isprintable() or not plainText:
+    print("Enter a non-empty, printable plaintext.")
+    plainText = input("Enter the plaintext: ").strip()
+
+
+while True:
+    try:
+        shiftNum = int(input("Enter the shift: ").strip())
+        if shiftNum > 0:
+            break
+        else:
+            print("Please enter a valid shift value greater than 0.")
+    except ValueError:
+        print("Please enter a valid integer for the shift.")
+shiftNum %= len(chars)
 
 # Encrypt the plaintext and display the result
 encrypted = caesar_encrypt(plainText, shiftNum)
