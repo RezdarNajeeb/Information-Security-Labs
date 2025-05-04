@@ -20,7 +20,10 @@ def monoalphabetic_encrypt(plain_text, key):
         raise ValueError(f"Character '{e.args[0]}' is not a valid ASCII character.")
 
 # Get user input
-plaintext = input("Enter the plaintext: ")
+plaintext = input("Enter the plaintext: ").strip()
+while not plaintext.isprintable() or not plaintext:
+    print("Enter a non-empty, printable plaintext.")
+    plaintext = input("Enter the plaintext: ").strip()
 
 # Encrypt the plaintext and display the result
 encrypted = monoalphabetic_encrypt(plaintext, shuffled_key)
