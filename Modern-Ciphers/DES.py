@@ -385,6 +385,23 @@ def main():
     ciphertext_binary = des_encrypt(plaintext_binary, subkeys)
     print(f"\nCiphertext (64-bit binary): {ciphertext_binary}")
 
+    # Display the ciphertext in ASCII format
+    try:
+        # Try converting binary to ASCII
+        ciphertext_ascii = binary_to_ascii(ciphertext_binary)
+
+        # Check for non-printable characters and handle them
+        ciphertext_display = ''.join(
+            char if char.isprintable() else '[NP]'
+            for char in ciphertext_ascii
+        )
+
+        print(f"Ciphertext: {ciphertext_display}")
+
+    except:
+        # Fallback: Notify the user that non-printable characters exist
+        print("Ciphertext contains non-printable characters and could not be displayed.")
+
     # Decrypt to verify
     decrypted_binary = des_encrypt(ciphertext_binary, subkeys[::-1])
     decrypted_ascii = binary_to_ascii(decrypted_binary)
