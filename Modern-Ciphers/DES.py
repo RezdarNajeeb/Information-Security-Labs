@@ -392,7 +392,7 @@ def main():
 
         # Check for non-printable characters and handle them
         ciphertext_display = ''.join(
-            char if char.isprintable() else '[NP]'
+            char if char.isprintable() else '?'  # Replace non-printable characters with '?'
             for char in ciphertext_ascii
         )
 
